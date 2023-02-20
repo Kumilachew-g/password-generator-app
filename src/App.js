@@ -107,6 +107,17 @@ const App = () => {
               onChange={(e) => setPasswordLength(e.target.value)}
             />
           </div>
+
+          <div className="form-group">
+            <label htmlFor="include-numbers">Include Numbers</label>
+            <input
+              type="checkbox"
+              name="include-numbers"
+              id="include-numbers"
+              checked={includeNumbers}
+              onChange={(e) => setIncludeNumbers(e.target.checked)}
+            />
+          </div>
         </div>
       </div>
     </div>
