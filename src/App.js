@@ -1,26 +1,27 @@
 import React, { useState } from "react";
 import "./App.css";
-
-import { toast, ToastContainer } from "react-toastify";
 import {
-  lowerCaseLetters,
   numbers,
   upperCaseLetters,
+  lowerCaseLetters,
   specialCharacters,
 } from "./components/Character";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { copyFail, copySuccess } from "./components/Message";
+
 const App = () => {
   const [password, setPassword] = useState("");
   const [passwordLength, setPasswordLength] = useState(26);
-  const [includeNumbers, setIncludeNumbers] = useState(false);
-  const [includeLowerCase, setIncludeLowerCase] = useState(false);
   const [includeUpperCase, setIncludeUpperCase] = useState(false);
+  const [includeLowerCase, setIncludeLowerCase] = useState(false);
+  const [includeNumbers, setIncludeNumbers] = useState(false);
   const [includeSymbols, setIncludeSymbols] = useState(false);
   const handleGeneratePassword = () => {
     if (
+      !includeUpperCase &&
       !includeLowerCase &&
       !includeNumbers &&
-      !includeUpperCase &&
       !includeSymbols
     ) {
       notify("To generate password you must select atleast one checkbox", true);
@@ -29,21 +30,19 @@ const App = () => {
       if (includeNumbers) {
         characterList = characterList + numbers;
       }
-      if (includeLowerCase) {
-        characterList = characterList + lowerCaseLetters;
-      }
       if (includeUpperCase) {
         characterList = characterList + upperCaseLetters;
+      }
+      if (includeLowerCase) {
+        characterList = characterList + lowerCaseLetters;
       }
       if (includeSymbols) {
         characterList = characterList + specialCharacters;
       }
-
       setPassword(createPassword(characterList));
       notify("Password is generated successfully", false);
     }
   };
-
   const createPassword = (characterList) => {
     let password = "";
     const characterListLength = characterList.length;
@@ -53,16 +52,14 @@ const App = () => {
     }
     return password;
   };
-
   const copyToClipboard = (password) => {
     navigator.clipboard.writeText(password);
   };
-
   const notify = (message, hasError = false) => {
     if (hasError) {
       toast.error(message, {
         position: "top-center",
-        autoClose: 2000,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -72,7 +69,7 @@ const App = () => {
     } else {
       toast(message, {
         position: "top-center",
-        autoClose: 2000,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -89,6 +86,7 @@ const App = () => {
       notify(copySuccess);
     }
   };
+
   return (
     <div className="App">
       <div className="container">
@@ -101,68 +99,64 @@ const App = () => {
             </button>
           </div>
           <div className="form-group">
-            <label htmlFor="password-strength"> Password length </label>
+            <label htmlFor="password-strength">Password length</label>
             <input
-              type="number"
-              name="password-strength"
-              id="password-strength"
-              max="26"
-              min="8"
+              className="pw"
               defaultValue={passwordLength}
               onChange={(e) => setPasswordLength(e.target.value)}
+              type="number"
+              id="password-stregth"
+              name="password-strength"
+              max="26"
+              min="8"
             />
           </div>
-
+          <div className="form-group">
+            <label htmlFor="uppercase-letters">Add Uppercase Letters</label>
+            <input
+              checked={includeUpperCase}
+              onChange={(e) => setIncludeUpperCase(e.target.checked)}
+              type="checkbox"
+              id="uppercase-letters"
+              name="uppercase-letters"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="lowercase-letters">Add Lowercase Letters</label>
+            <input
+              checked={includeLowerCase}
+              onChange={(e) => setIncludeLowerCase(e.target.checked)}
+              type="checkbox"
+              id="lowercase-letters"
+              name="lowercase-letters"
+            />
+          </div>
           <div className="form-group">
             <label htmlFor="include-numbers">Include Numbers</label>
             <input
-              type="checkbox"
-              name="include-numbers"
-              id="include-numbers"
               checked={includeNumbers}
               onChange={(e) => setIncludeNumbers(e.target.checked)}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="include-lowercase">Include Lowercase</label>
-            <input
               type="checkbox"
-              name="include-lowercase"
-              id="include-lowercase"
-              checked={includeLowerCase}
-              onChange={(e) => setIncludeLowerCase(e.target.checked)}
+              id="include-numbers"
+              name="include-numbers"
             />
           </div>
-
-          <div className="form-group">
-            <label htmlFor="include-uppercase">Include Uppercase</label>
-            <input
-              type="checkbox"
-              name="include-uppercase"
-              id="include-uppercase"
-              checked={includeUpperCase}
-              onChange={(e) => setIncludeUpperCase(e.target.checked)}
-            />
-          </div>
-
           <div className="form-group">
             <label htmlFor="include-symbols">Include Symbols</label>
             <input
-              type="checkbox"
-              name="include-symbols"
-              id="include-symbols"
               checked={includeSymbols}
               onChange={(e) => setIncludeSymbols(e.target.checked)}
+              type="checkbox"
+              id="include-symbols"
+              name="include-symbols"
             />
           </div>
-
           <button onClick={handleGeneratePassword} className="generator__btn">
             Generate Password
           </button>
           <ToastContainer
             position="top-center"
-            autoClose={2000}
+            autoClose={5000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick
