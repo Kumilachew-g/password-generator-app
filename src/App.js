@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import "./App.css";
 
+import { lowerCaseLetters, numbers } from "./components/Character";
+
 const App = () => {
   const [Password, setPassword] = useState("");
   const [passwordLength, setPasswordLength] = useState(26);
-  const [includenumbers, setIncludeNumbers] = useState(false);
+  const [includeNumbers, setIncludeNumbers] = useState(false);
   const [includeLowerCase, setIncludeLowerCase] = useState(false);
   const [includeUpperCase, setIncludeUpperCase] = useState(false);
   const [includeSymbols, setIncludeSymbols] = useState(false);
@@ -16,8 +18,35 @@ const App = () => {
       const characterIndex = Math.round(Math.random() * characterListLength);
       password = password + characterList.charAt(characterIndex);
     }
-    console.log(password);
     return password;
+  };
+
+  const handleGeneratePassword = () => {
+    if (
+      !includeLowerCase &&
+      !includeNumbers &&
+      !includeUpperCase &&
+      !includeSymbols
+    ) {
+      notify("To generate password you must select atleast one checkbox", true);
+    } else {
+      let characterList = "";
+      if (includeNumbers) {
+        characterList = characterList + numbers;
+      }
+      if (includeLowerCase) {
+        characterList = characterList + lowerCaseLetters;
+      }
+      if (includeUpperCase) {
+        characterList = characterList + upperCaseLetters;
+      }
+      if (includeSymbols) {
+        characterList = characterList + specialCharacters;
+      }
+
+      setPassword(createPassword(characterList));
+      notify("Password is generated successfully", false);
+    }
   };
   return (
     <div className="App">
