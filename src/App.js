@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { lowerCaseLetters, numbers } from "./components/Character";
 import { copyFail, copySuccess } from "./components/message";
 const App = () => {
-  const [Password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordLength, setPasswordLength] = useState(26);
   const [includeNumbers, setIncludeNumbers] = useState(false);
   const [includeLowerCase, setIncludeLowerCase] = useState(false);
@@ -118,6 +118,54 @@ const App = () => {
               onChange={(e) => setIncludeNumbers(e.target.checked)}
             />
           </div>
+
+          <div className="form-group">
+            <label htmlFor="include-lowercase">Include Lowercase</label>
+            <input
+              type="checkbox"
+              name="include-lowercase"
+              id="include-lowercase"
+              checked={includeLowerCase}
+              onChange={(e) => setIncludeLowerCase(e.target.checked)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="include-uppercase">Include Uppercase</label>
+            <input
+              type="checkbox"
+              name="include-uppercase"
+              id="include-uppercase"
+              checked={includeUpperCase}
+              onChange={(e) => setIncludeUpperCase(e.target.checked)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="include-symbols">Include Symbols</label>
+            <input
+              type="checkbox"
+              name="include-symbols"
+              id="include-symbols"
+              checked={includeSymbols}
+              onChange={(e) => setIncludeSymbols(e.target.checked)}
+            />
+          </div>
+
+          <button onClick={handleGeneratePassword} className="generator__btn">
+            Generate Password
+          </button>
+          <ToastContainer
+            position="top-center"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </div>
       </div>
     </div>
