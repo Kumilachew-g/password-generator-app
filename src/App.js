@@ -93,8 +93,8 @@ const App = () => {
     <div className="App">
       <div className="container">
         <div className="generator">
-          <h2 className="generator_header">Password Generator</h2>
-          <div className="generator_password">
+          <h2 className="generator__header">Password Generator</h2>
+          <div className="generator__password">
             <h3>{password}</h3>
             <button className="copy__btn">
               <i onClick={handleCopyPassword} className="far fa-clipboard"></i>
