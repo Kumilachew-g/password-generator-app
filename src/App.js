@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import "./App.css";
 
 import { toast, ToastContainer } from "react-toastify";
-import { lowerCaseLetters, numbers } from "./components/Character";
-import { copyFail, copySuccess } from "./components/message";
+import {
+  lowerCaseLetters,
+  numbers,
+  upperCaseLetters,
+  specialCharacters,
+} from "./components/Character";
+import { copyFail, copySuccess } from "./components/Message";
 const App = () => {
   const [password, setPassword] = useState("");
   const [passwordLength, setPasswordLength] = useState(26);
