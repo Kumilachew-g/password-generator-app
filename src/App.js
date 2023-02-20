@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
-
 import { lowerCaseLetters, numbers } from "./components/Character";
-
+import { copyFail, copySuccess } from "./components/message";
 const App = () => {
   const [Password, setPassword] = useState("");
   const [passwordLength, setPasswordLength] = useState(26);
@@ -46,6 +45,19 @@ const App = () => {
 
       setPassword(createPassword(characterList));
       notify("Password is generated successfully", false);
+    }
+  };
+
+  const copyToClipboard = (password) => {
+    navigator.clipboard.writeText(password);
+  };
+
+  const handleCopyPassword = (e) => {
+    if (password === "") {
+      notify(copyFail, true);
+    } else {
+      copyToClipboard(password);
+      notify(copySuccess);
     }
   };
   return (
